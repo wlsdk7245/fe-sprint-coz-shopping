@@ -47,6 +47,9 @@ const StyledWrapper = styled.div`
   filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
   text-align: center;
   transition: 300ms;
+  z-index: 999;
+  pointer-events: ${({ isOpenDropdown }) =>
+    isOpenDropdown ? "default" : "none"};
 
   &::before {
     content: "";

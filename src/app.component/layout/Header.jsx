@@ -46,7 +46,10 @@ const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: sticky;
+  top: 0;
+  background-color: var(--color-white);
+  z-index: 2;
 
   .header-title {
     display: flex;
