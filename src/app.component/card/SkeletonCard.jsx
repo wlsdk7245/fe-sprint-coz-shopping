@@ -21,6 +21,6 @@ const StyledWrapper = styled.div`
     height: 210px;
     object-fit: cover;
     cursor: pointer;
-    background-color: var(--color-gray);
+    background-color: var(--color-black-10);
   }
 `;

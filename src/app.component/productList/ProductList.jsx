@@ -7,8 +7,8 @@ const ProductList = ({ productList }) => {
   return (
     <StyledWrapper>
       {productList.map((product) => {
-        const { id } = product;
-        if (id === undefined) return <SkeletonCard />;
+        const { type, id } = product;
+        if (!type) return <SkeletonCard />;
         else
           return (
             <Card key={`${Date.now()}-${Math.random()}-${id}`} info={product} />
