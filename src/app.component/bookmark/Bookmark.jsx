@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { toast } from "../toast/Toast";
 
-const Bookmark = ({ isBookmarked, onClickBookmark }) => {
+const Bookmark = ({
+  className = "bookmark",
+  isBookmarked,
+  onClickBookmark,
+}) => {
   const handleClickBookmark = () => {
     if (isBookmarked) {
       toast.delete("상품이 북마크에서 제거되었습니다.");
@@ -13,7 +17,7 @@ const Bookmark = ({ isBookmarked, onClickBookmark }) => {
   };
 
   return (
-    <StyledWrapper className="bookmark">
+    <StyledWrapper className={className}>
       <img
         onClick={handleClickBookmark}
         className="bookmark-button"
