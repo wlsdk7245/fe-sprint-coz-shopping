@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { toast } from "./Toast";
+
 const fadein = keyframes`
   0% { top: 0px; opacity: 0; } 
   100% { top: -30px; opacity: 1; }
@@ -70,6 +71,7 @@ const StyledWrapper = styled.div`
           ${fadein} 700ms, ${fadeout} 700ms 3s
         `
       : ""};
+
   img {
     margin-right: 8px;
     width: 16px;

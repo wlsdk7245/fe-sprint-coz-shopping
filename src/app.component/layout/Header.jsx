@@ -49,7 +49,7 @@ const StyledWrapper = styled.div`
   position: sticky;
   top: 0;
   background-color: var(--color-white);
-  z-index: 2;
+  z-index: 100;
 
   .header-title {
     display: flex;
