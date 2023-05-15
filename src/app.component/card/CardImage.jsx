@@ -1,9 +1,27 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import Bookmark from "../bookmark/Bookmark";
 import Modal from "../modal/Modal";
 
-const CardImage = ({ info }) => {
+export const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+export const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
+const CardImage = ({ info, isLoading, setIsLoading }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -58,7 +76,7 @@ const CardImage = ({ info }) => {
   }, []);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper isLoaded={!isLoading}>
       <Modal
         title={title}
         isOpen={isOpenModal}
@@ -67,13 +85,17 @@ const CardImage = ({ info }) => {
         isBookmarked={isBookmarked}
         onClickBookmark={handleClickBookmark}
       />
+      <div className="card-background" />
       <img
         src={image}
+        loading="lazy"
         alt="card"
-        className="card-image"
+        onLoad={() => setIsLoading(false)}
+        className={`card-image`}
         onClick={handleOpenModal}
       />
       <Bookmark
+        bookmark={`bookmark ${info.type ? "visible__true" : "visible__false"}`}
         isBookmarked={isBookmarked}
         onClickBookmark={handleClickBookmark}
       />
@@ -86,22 +108,74 @@ export default CardImage;
 const StyledWrapper = styled.div`
   position: relative;
   width: 264px;
+  height: 210px;
+
+  .card-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-black-10);
+    border-radius: 12px;
+    z-index: 1;
+  }
 
   .openModal {
     display: flex;
   }
 
   .card-image {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: 300ms;
     border-radius: 12px;
-    width: 264px;
-    height: 210px;
     object-fit: cover;
+    overflow: hidden;
+    opacity: 1;
     cursor: pointer;
+
+    ${({ isLoaded }) => css`
+      opacity: 0;
+      animation: ${isLoaded ? fadeIn : null} 0.5s forwards;
+    `}
   }
 
   .bookmark {
     position: absolute;
     bottom: 12px;
     right: 12px;
+    opacity: 1;
+    z-index: 3;
+    ${({ isLoaded }) => css`
+      opacity: 0;
+      animation: ${isLoaded ? fadeIn : null} 0.5s forwards;
+    `}
+  }
+
+  @keyframes fade-in {
+    from {
+      display: hidden;
+      opacity: 0;
+    }
+    to {
+      display: block;
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+      display: block;
+    }
+    to {
+      opacity: 0;
+      display: hidden;
+    }
   }
 `;
