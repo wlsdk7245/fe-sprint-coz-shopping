@@ -3,7 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 import Filter from "../../app.component/filter/Filter";
 import CardList from "../../app.component/cardList/CardList";
-import NoneCardList from "../../app.component/cardList/NoneCardList";
 
 const Product = () => {
   const [isLoading, setIsLoading] = useState(false);
