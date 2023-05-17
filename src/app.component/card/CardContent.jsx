@@ -2,62 +2,74 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { fadeIn } from "./CardImage";
 
-const CardContent = ({ info, isLoading, setIsLoading }) => {
-  const { type } = info;
+const CARD_TYPE = {
+  PRODUCT: "Product",
+  EXHIBITION: "Exhibition",
+  BRAND: "Brand",
+  CATEGORY: "Category",
+};
 
-  if (type === "Product") {
-    const { title, price, discountPercentage } = info;
-    return (
-      <ProductWrapper isLoading={isLoading}>
-        <div className="product-detail__title">{title}</div>
-        <div className="product-detail__price">
-          <div className="product-detail__price-top">{discountPercentage}%</div>
-          <div className="product-detail__price-bottom">
-            {Number(price).toLocaleString()}
-          </div>
-        </div>
-      </ProductWrapper>
-    );
-  } else if (type === "Exhibition") {
-    const { title, sub_title } = info;
-    return (
-      <ExhibitionWrapper isLoading={isLoading}>
-        <div className="exhibition-detail__title">{title}</div>
-        <div className="exhibition-detail__content">{sub_title}</div>
-      </ExhibitionWrapper>
-    );
-  } else if (type === "Brand") {
-    const { brand_name, follower } = info;
-    return (
-      <BrandWrapper isLoading={isLoading}>
-        <div className="brand-detail__title">{brand_name}</div>
-        <div className="brand-detail__customer">
-          <div className="brand-detail__customer-top">관심고객수</div>
-          <div className="brand-detail__customer-bottom">
-            {follower.toLocaleString()}
-          </div>
-        </div>
-      </BrandWrapper>
-    );
-  } else if (type === "Category") {
-    const { title } = info;
-    return (
-      <CategoryWrapper isLoading={isLoading}>
-        <div className="category-detail__title"># {title}</div>
-      </CategoryWrapper>
-    );
-  } else {
-    return <StyledWrapper></StyledWrapper>;
-  }
+const CardContent = ({ info, isLoading }) => {
+  const {
+    type,
+    title,
+    price,
+    discountPercentage,
+    sub_title,
+    brand_name,
+    follower,
+  } = info;
+
+  const getCardContent = (type) => {
+    let titleLeft = "",
+      titleRight = "",
+      detail = "",
+      className = "default";
+
+    if (type === CARD_TYPE.PRODUCT) {
+      titleLeft = title;
+      titleRight = `${discountPercentage}%`;
+      detail = price;
+      className = "product";
+    } else if (type === CARD_TYPE.EXHIBITION) {
+      titleLeft = title;
+      detail = sub_title;
+      className = "exhibition";
+    } else if (type === CARD_TYPE.BRAND) {
+      titleLeft = brand_name;
+      titleRight = "관심고객수";
+      detail = follower.toLocaleString();
+      className = "brand";
+    } else if (type === CARD_TYPE.CATEGORY) {
+      titleLeft = `# ${title}`;
+      className = "category";
+    }
+
+    return {
+      titleLeft,
+      titleRight,
+      detail,
+      className,
+    };
+  };
+
+  const { titleLeft, titleRight, detail, className } = getCardContent(type);
+
+  return (
+    <StyledWrapper isLoading={isLoading}>
+      <div className={`${className} card-title`}>
+        <div className={`${className} card-title__left`}>{titleLeft}</div>
+        <div className={`${className} card-title__right`}>{titleRight}</div>
+      </div>
+      <div className={`${className} card-detail`}>{detail}</div>
+    </StyledWrapper>
+  );
 };
 
 export default React.memo(CardContent);
 
 const StyledWrapper = styled.div`
-  height: 54px;
-`;
-
-const ExhibitionWrapper = styled.div`
+  min-height: 54px;
   padding-top: 6px;
   line-height: 24px;
   font-size: 16px;
@@ -67,86 +79,22 @@ const ExhibitionWrapper = styled.div`
     animation: ${!isLoading ? fadeIn : null} 0.3s forwards;
   `}
 
-  .exhibition-detail__title {
+  .card-title {
     font-weight: 800;
+    display: flex;
+    justify-content: space-between;
   }
 
-  .exhibition-detail__content {
-  }
-`;
-
-const BrandWrapper = styled.div`
-  padding-top: 6px;
-  display: flex;
-  justify-content: space-between;
-  line-height: 24px;
-  font-size: 16px;
-
-  ${({ isLoading }) => css`
-    opacity: 0;
-    animation: ${!isLoading ? fadeIn : null} 0.3s forwards;
-  `}
-
-  .brand-detail__title {
-    font-weight: 800;
-  }
-
-  .brand-detail__customer {
-    text-align: end;
-
-    .brand-detail__customer-top {
-      font-weight: 800;
-    }
-
-    .brand-detail__customer-bottom {
+  .brand,
+  .product {
+    &.card-detail {
+      text-align: right;
       font-weight: 400;
     }
   }
-`;
-
-const CategoryWrapper = styled.div`
-  padding-top: 6px;
-  display: flex;
-  justify-content: space-between;
-  line-height: 24px;
-  font-size: 16px;
-
-  ${({ isLoading }) => css`
-    opacity: 0;
-    animation: ${!isLoading ? fadeIn : null} 0.3s forwards;
-  `}
-
-  .category-detail__title {
-    font-weight: 800;
-  }
-`;
-
-const ProductWrapper = styled.div`
-  padding-top: 6px;
-  display: flex;
-  justify-content: space-between;
-  line-height: 24px;
-  font-size: 16px;
-
-  ${({ isLoading }) => css`
-    opacity: 0;
-    animation: ${!isLoading ? fadeIn : null} 0.3s forwards;
-  `}
-
-  .product-detail__title {
-    font-weight: 800;
-  }
-
-  .product-detail__price {
-    text-align: end;
-
-    .product-detail__price-top {
-      font-weight: 800;
+  .product {
+    .card-title__right {
       color: var(--color-violet);
-    }
-
-    .product-detail__price-bottom {
-      font-weight: 500;
     }
   }
 `;

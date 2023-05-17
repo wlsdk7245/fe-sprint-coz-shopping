@@ -2,39 +2,26 @@ import React from "react";
 import styled from "styled-components";
 import FilterItem from "./FilterItem";
 
+const FILTER_CONTENT = [
+  { title: "전체", src: "all" },
+  { title: "상품", src: "Product" },
+  { title: "카테고리", src: "Category" },
+  { title: "기획전", src: "Exhibition" },
+  { title: "브랜드", src: "Brand" },
+];
+
 const Filter = ({ selectedFilter, setSelectedFilter }) => {
   return (
     <StyledWrapper>
-      <FilterItem
-        title="전체"
-        src="all"
-        selected={selectedFilter === "all"}
-        setSelectedFilter={setSelectedFilter}
-      />
-      <FilterItem
-        title="상품"
-        src="Product"
-        selected={selectedFilter === "Product"}
-        setSelectedFilter={setSelectedFilter}
-      />
-      <FilterItem
-        title="카테고리"
-        src="Category"
-        selected={selectedFilter === "Category"}
-        setSelectedFilter={setSelectedFilter}
-      />
-      <FilterItem
-        title="기획전"
-        src="Exhibition"
-        selected={selectedFilter === "Exhibition"}
-        setSelectedFilter={setSelectedFilter}
-      />
-      <FilterItem
-        title="브랜드"
-        src="Brand"
-        selected={selectedFilter === "Brand"}
-        setSelectedFilter={setSelectedFilter}
-      />
+      {FILTER_CONTENT.map(({ title, src }) => (
+        <FilterItem
+          key={`filter-${src}`}
+          title={title}
+          src={src}
+          selected={selectedFilter === src}
+          setSelectedFilter={setSelectedFilter}
+        />
+      ))}
     </StyledWrapper>
   );
 };

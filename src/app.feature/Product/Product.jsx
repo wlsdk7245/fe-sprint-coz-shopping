@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Filter from "../../app.component/filter/Filter";
 import CardList from "../../app.component/cardList/CardList";
+import NoneCardList from "../../app.component/cardList/NoneCardList";
 
 const Product = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,10 +42,11 @@ const Product = () => {
     return () => observer && observer.disconnect();
   }, [target]);
 
+  const SkeletonArray = Array.from(Array(20).keys());
   let dataset = productList;
   if (selectedFilter !== "all")
     dataset = dataset.filter((item) => item.type === selectedFilter);
-
+  if (isLoading) dataset = [...dataset, ...SkeletonArray];
   return (
     <StyledWrapper>
       <Filter
@@ -52,8 +54,9 @@ const Product = () => {
         setSelectedFilter={setSelectedFilter}
       />
       <CardList cardList={dataset} />
-      {!isLoading && <div className="last-item-flag" ref={setTarget} />}
-      {isLoading && <CardList cardList={Array.from(Array(20).keys)} />}
+      {dataset.length && !isLoading && (
+        <div className="last-item-flag" ref={setTarget} />
+      )}
     </StyledWrapper>
   );
 };
@@ -62,12 +65,12 @@ export default Product;
 
 const StyledWrapper = styled.div`
   position: relative;
+
   .last-item-flag {
     bottom: 0;
-    position: absolute;
     right: 0;
     left: 0;
-    width: 100vw;
     height: 100px;
+    position: absolute;
   }
 `;

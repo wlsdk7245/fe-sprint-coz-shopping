@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CardList from "../../app.component/cardList/CardList";
+import NoneCardList from "../../app.component/cardList/NoneCardList";
 import Filter from "../../app.component/filter/Filter";
 
 const Bookmark = () => {
@@ -50,7 +51,6 @@ const Bookmark = () => {
   let dataset = bookmarkList;
   if (selectedFilter !== "all")
     dataset = dataset.filter((item) => item.type === selectedFilter);
-
   return (
     <StyledWrapper>
       <Filter
@@ -66,10 +66,13 @@ const Bookmark = () => {
 export default Bookmark;
 
 const StyledWrapper = styled.div`
+  position: relative;
+
   .last-item-flag {
     bottom: 0;
     right: 0;
-    width: 100vw;
+    left: 0;
     height: 100px;
+    position: absolute;
   }
 `;

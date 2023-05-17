@@ -13,11 +13,7 @@ const Card = ({ info }) => {
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-      <CardContent
-        info={info}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-      />
+      <CardContent info={info} isLoading={isLoading} />
     </StyledWrapper>
   );
 };

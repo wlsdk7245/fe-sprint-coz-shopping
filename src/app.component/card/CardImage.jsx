@@ -95,7 +95,6 @@ const CardImage = ({ info, isLoading, setIsLoading }) => {
         onClick={handleOpenModal}
       />
       <Bookmark
-        bookmark={`bookmark ${info.type ? "visible__true" : "visible__false"}`}
         isBookmarked={isBookmarked}
         onClickBookmark={handleClickBookmark}
       />
@@ -155,27 +154,5 @@ const StyledWrapper = styled.div`
       opacity: 0;
       animation: ${isLoaded ? fadeIn : null} 0.5s forwards;
     `}
-  }
-
-  @keyframes fade-in {
-    from {
-      display: hidden;
-      opacity: 0;
-    }
-    to {
-      display: block;
-      opacity: 1;
-    }
-  }
-
-  @keyframes fade-out {
-    from {
-      opacity: 1;
-      display: block;
-    }
-    to {
-      opacity: 0;
-      display: hidden;
-    }
   }
 `;
