@@ -1,51 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Filter from "../../app.component/filter/Filter";
 import CardList from "../../app.component/cardList/CardList";
+import useIntersectionObserver from "../../app.hook/useIntersectionObserver";
+import Error from "../../app.component/error/Error";
 
 const Product = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [productList, setProductList] = useState([]);
-  const [target, setTarget] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("all");
+  const [isError, setIsError] = useState(false);
+
+  const lastCardRef = useRef();
 
   const requestProductList = async () => {
-    setIsLoading(true);
-    const result = await axios.get(
-      "http://cozshopping.codestates-seb.link/api/v1/products"
-    );
+    try {
+      setIsLoading(true);
+      const result = await axios.get(
+        "http://cozshopping.codestates-seb.link/api/v1/products"
+      );
 
-    if (result?.status === 200)
-      setProductList([...productList, ...result.data]);
-    setIsLoading(false);
+      if (result?.status === 200)
+        setProductList([...productList, ...result.data]);
+    } catch (err) {
+      setIsError(true);
+      setProductList([]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
     requestProductList();
   }, []);
 
-  useEffect(() => {
-    let observer;
-    if (target) {
-      const onIntersect = async ([entry], observer) => {
-        if (entry.isIntersecting) {
-          observer.unobserve(entry.target);
-          await requestProductList();
-          observer.observe(entry.target);
-        }
-      };
-      observer = new IntersectionObserver(onIntersect, { threshold: 0.1 });
-      observer.observe(target);
-    }
-    return () => observer && observer.disconnect();
-  }, [target]);
+  useIntersectionObserver({
+    root: null,
+    target: lastCardRef,
+    enabled: !isError,
+    onIntersect: requestProductList,
+  });
 
   const SkeletonArray = Array.from(Array(20).keys());
   let dataset = productList;
   if (selectedFilter !== "all")
     dataset = dataset.filter((item) => item.type === selectedFilter);
   if (isLoading) dataset = [...dataset, ...SkeletonArray];
+
+  if (isError) return <Error />;
   return (
     <StyledWrapper>
       <Filter
@@ -53,9 +56,7 @@ const Product = () => {
         setSelectedFilter={setSelectedFilter}
       />
       <CardList cardList={dataset} />
-      {dataset.length && !isLoading && (
-        <div className="last-item-flag" ref={setTarget} />
-      )}
+      <div className="last-item-flag" ref={lastCardRef} />
     </StyledWrapper>
   );
 };

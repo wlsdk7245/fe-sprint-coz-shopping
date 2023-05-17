@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Card from "../card/Card";
 import NoneCardList from "./NoneCardList";
 
-const CardList = ({ cardList }) => {
-  if (!cardList.length) return <NoneCardList />;
+const CardList = ({ cardList, isLoading }) => {
+  if (!isLoading && !cardList.length) return <NoneCardList />;
   return (
     <StyledWrapper>
       {cardList.map((product) => {

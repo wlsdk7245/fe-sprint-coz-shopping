@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CardList from "../../app.component/cardList/CardList";
+import Error from "../../app.component/error/Error";
 
 const BookmarkList = () => {
   const [isBookmarkLoading, setIsBookmarkLoading] = useState(true);
   const [bookmarkList, setBookmarkList] = useState([]);
+  const [isError, setIsError] = useState(false);
+
+  let localDataset = localStorage.getItem("coz-shopping");
+  localDataset = JSON.parse(localDataset) ?? [];
 
   const requestBookmarkList = () => {
-    setIsBookmarkLoading(true);
-    const data = localStorage.getItem("coz-shopping");
-    setBookmarkList(JSON.parse(data));
-    setIsBookmarkLoading(false);
+    try {
+      setIsBookmarkLoading(true);
+      if (localDataset) {
+        setBookmarkList(localDataset);
+      } else {
+        setBookmarkList([]);
+      }
+    } catch (err) {
+      console.log(err);
+      setIsError(true);
+      setBookmarkList([]);
+    } finally {
+      setIsBookmarkLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -23,11 +38,16 @@ const BookmarkList = () => {
 
   if (isBookmarkLoading)
     bookmarkDataset = [...bookmarkDataset, ...SkeletonArray];
-
   return (
     <StyledWrapper>
       <div className="list-title">북마크 리스트</div>
-      <CardList cardList={bookmarkDataset.slice(0, 4)} />
+      {isError && (
+        <Error
+          innerText="북마크 리스트를 불러오는 데 실패했습니다. 다시 시도해주세요."
+          height="264px"
+        />
+      )}
+      {!isError && <CardList cardList={bookmarkDataset.slice(0, 4)} />}
     </StyledWrapper>
   );
 };
