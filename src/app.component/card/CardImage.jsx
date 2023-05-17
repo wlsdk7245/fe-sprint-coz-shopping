@@ -89,7 +89,7 @@ const CardImage = ({ info, isLoading, setIsLoading }) => {
       <img
         src={image}
         loading="lazy"
-        alt="card"
+        alt=""
         onLoad={() => setIsLoading(false)}
         className={`card-image`}
         onClick={handleOpenModal}
@@ -115,9 +115,9 @@ const StyledWrapper = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--color-black-10);
+    background: var(--color-gray-10);
     border-radius: 12px;
-    z-index: 1;
+    z-index: 2;
   }
 
   .openModal {

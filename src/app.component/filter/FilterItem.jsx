@@ -27,7 +27,6 @@ const FilterItem = ({ title, src, selected, setSelectedFilter }) => {
 export default FilterItem;
 
 const StyledWrapper = styled.div`
-  margin-bottom: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,6 +38,8 @@ const StyledWrapper = styled.div`
   }
 
   .filter-item__img {
+    width: 82px;
+    height: 82px;
     margin-bottom: 6px;
   }
 

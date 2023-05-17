@@ -21,6 +21,7 @@ code {
 
 :root {
   --color-black-10: rgba(0, 0, 0, 0.1);
+  --color-gray-10: #d8d8d8;
   --color-black: #000000;
   --color-violet: #452cdd;
   --color-gray: #888888;

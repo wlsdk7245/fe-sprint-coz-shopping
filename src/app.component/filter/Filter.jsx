@@ -29,6 +29,7 @@ const Filter = ({ selectedFilter, setSelectedFilter }) => {
 export default Filter;
 
 const StyledWrapper = styled.div`
+  min-height: 111px;
   margin-bottom: 24px;
   display: flex;
   gap: 36px;
