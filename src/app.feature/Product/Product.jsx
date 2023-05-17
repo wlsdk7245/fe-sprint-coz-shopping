@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Filter from "../../app.component/filter/Filter";
@@ -23,6 +23,7 @@ const Product = () => {
 
       if (result?.status === 200)
         setProductList([...productList, ...result.data]);
+      else throw result;
     } catch (err) {
       setIsError(true);
       setProductList([]);
@@ -31,7 +32,7 @@ const Product = () => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     requestProductList();
   }, []);
 

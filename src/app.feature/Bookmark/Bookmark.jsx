@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CardList from "../../app.component/cardList/CardList";
 import Error from "../../app.component/error/Error";
@@ -37,7 +37,7 @@ const Bookmark = () => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     requestBookmarkList();
   }, []);
 

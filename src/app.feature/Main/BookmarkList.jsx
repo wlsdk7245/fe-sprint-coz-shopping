@@ -22,7 +22,6 @@ const BookmarkList = () => {
     } catch (err) {
       console.log(err);
       setIsError(true);
-      setBookmarkList([]);
     } finally {
       setIsBookmarkLoading(false);
     }
