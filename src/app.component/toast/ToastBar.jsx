@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
+import { fadeInMove, fadeOutMove } from "../../app.constant/animation";
 import { toast } from "./Toast";
-
-const fadein = keyframes`
-  0% { top: 0px; opacity: 0; } 
-  100% { top: -30px; opacity: 1; }
-`;
-const fadeout = keyframes`
-  0% { top: -30px; opacity: 1; } 
-  100% { top: 0px; opacity: 0; }
-`;
 
 const ToastBar = ({ toastItem }) => {
   const { id, type, message } = toastItem;
@@ -37,14 +29,7 @@ const ToastBar = ({ toastItem }) => {
   }, [toastItem, toastDuration]);
 
   return (
-    <StyledWrapper opacity={opacity}>
-      <img
-        alt="북마크"
-        src={
-          process.env.PUBLIC_URL +
-          `/images/bookmark-${type === "add" ? "on" : "off"}.png`
-        }
-      />
+    <StyledWrapper type={type} opacity={opacity}>
       {message}
     </StyledWrapper>
   );
@@ -64,17 +49,15 @@ const StyledWrapper = styled.div`
   font-weight: 700;
   font-size: 16px;
   z-index: 9999;
-  background-color: var(--color-white);
   animation: ${({ opacity }) =>
     opacity
       ? css`
-          ${fadein} 700ms, ${fadeout} 700ms 3s
+          ${fadeInMove} 700ms, ${fadeOutMove} 700ms 3s
         `
       : ""};
 
-  img {
-    margin-right: 8px;
-    width: 16px;
-    height: 16px;
-  }
+  background-color: ${({ type }) =>
+    type === "success" ? "var(--color-white)" : "var(--color-error)"};
+  color: ${({ type }) =>
+    type === "success" ? "var(--color-black)" : "var(--color-white)"};
 `;

@@ -4,39 +4,28 @@ import Bookmark from "../bookmark/Bookmark";
 import ModalContainer from "./ModalContainer";
 
 const Modal = ({
+  info,
   title,
   isOpen,
   onOpenModal,
   backgroundImage,
   isBookmarked,
-  onClickBookmark,
 }) => {
   return isOpen ? (
     <ModalContainer>
       <StyledWrapper onClick={onOpenModal}>
-        <div
-          className="modal-wrapper"
-          onClick={(event) => event.stopPropagation()}
-        >
-          <img
-            className="background-image"
-            src={backgroundImage}
-            alt="modal-background"
-          />
-          <img
-            className="close-button"
+        <ModalWrapper onClick={(event) => event.stopPropagation()}>
+          <BackgroundImage src={backgroundImage} alt="modal-background" />
+          <CloseButton
             src={process.env.PUBLIC_URL + "/images/close-button.png"}
             alt="close-button"
             onClick={onOpenModal}
           />
-          <div className="modal-title">
-            <Bookmark
-              isBookmarked={isBookmarked}
-              onClickBookmark={onClickBookmark}
-            />
-            <div className="modal-title__text">{title}</div>
-          </div>
-        </div>
+          <ModalTitle>
+            <Bookmark info={info} isBookmarked={isBookmarked} />
+            <ModalTitleText>{title}</ModalTitleText>
+          </ModalTitle>
+        </ModalWrapper>
       </StyledWrapper>
     </ModalContainer>
   ) : (
@@ -57,44 +46,41 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
 
-  .modal-wrapper {
-    position: relative;
-    filter: drop-shadow(0px 0px 36px rgba(0, 0, 0, 0.5));
+const ModalWrapper = styled.div`
+  position: relative;
+  filter: drop-shadow(0px 0px 36px rgba(0, 0, 0, 0.5));
+`;
 
-    .background-image {
-      border-radius: 12px;
-      overflow: hidden;
-      width: 744px;
-      height: 480px;
-      object-fit: cover;
-    }
+const BackgroundImage = styled.img`
+  border-radius: 12px;
+  overflow: hidden;
+  width: 744px;
+  height: 480px;
+  object-fit: cover;
+`;
 
-    .close-button {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      cursor: pointer;
-      text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    }
+const CloseButton = styled.img`
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  cursor: pointer;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+`;
 
-    .modal-title {
-      display: flex;
-      align-items: center;
-      position: absolute;
-      bottom: 24px;
-      left: 24px;
+const ModalTitle = styled.div`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+`;
 
-      img {
-        margin-right: 8px;
-      }
-
-      .modal-title__text {
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--color-white);
-        text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-      }
-    }
-  }
+const ModalTitleText = styled.div`
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-white);
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  margin-left: 8px;
 `;

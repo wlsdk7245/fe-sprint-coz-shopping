@@ -22,25 +22,16 @@ $ npm run start
 
 ### Environment
 
-<img src="https://img.shields.io/badge/VISUAL STUDIO CODE-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
-<img src="https://img.shields.io/badge/GIT-F05032?style=for-the-badge&logo=git&logoColor=white">
+<img src="https://img.shields.io/badge/VISUAL STUDIO CODE-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white"><img src="https://img.shields.io/badge/GIT-F05032?style=for-the-badge&logo=git&logoColor=white">
 <img src="https://img.shields.io/badge/GITHUB-181717?style=for-the-badge&logo=github&logoColor=white">
-
-<br/>
 
 ### Config
 
 <img src="https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white">
 
-<br/>
-
 ### Development
 
-<img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=000000">
-<img src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=react&logoColor=000000">
-<img src="https://img.shields.io/badge/STYLEDCOMPONENTS-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
-
-<br/>
+<img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=000000"><img src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=react&logoColor=000000"><img src="https://img.shields.io/badge/STYLEDCOMPONENTS-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
 
 ### Design & Communication
 
@@ -67,15 +58,21 @@ $ npm run start
 
 ### 메인페이지
 
+![](https://velog.velcdn.com/images/wlsdk0313/post/25b96e08-622a-42d2-baca-e88f47ead8b2/image.png)
+
 - 상품 카드 리스트
-
-### 북마크페이지
-
-- 20개씩 페이징해서 무한스크롤 처리 (localStorage)
 
 ### 상품리스트페이지
 
+![](https://velog.velcdn.com/images/wlsdk0313/post/30b01cde-a966-421a-8317-5a8c164af8eb/image.png)
+
 - 상품리스트는 서버에서 가져오는 데이터 계속 가져오도록 무한스크롤 처리
+
+### 북마크페이지
+
+![](https://velog.velcdn.com/images/wlsdk0313/post/da527ff6-b518-4ca0-8cc4-0855383609c5/image.png)
+
+- 20개씩 페이징해서 무한스크롤 처리 (localStorage)
 
 ---
 
@@ -93,63 +90,38 @@ $ npm run start
 │   │   ├── bookmark-on.png
 │   │   ├── bookmark.png
 │   │   ├── category
-│   │   │   ├── Brand.png
-│   │   │   ├── Category.png
-│   │   │   ├── Exhibition.png
-│   │   │   ├── Product.png
-│   │   │   └── all.png
 │   │   ├── close-button.png
 │   │   ├── logo.png
 │   │   ├── menu.png
-│   │   ├── product.png
-│   │   └── readme.png
+│   │   └── product.png
 │   ├── index.html
-│   ├── logo192.png
-│   ├── logo512.png
 │   ├── manifest.json
 │   └── robots.txt
 └── src
     ├── App.js
     ├── app.component => 공통 컴포넌트
     │   ├── bookmark
-    │   │   └── Bookmark.jsx
     │   ├── card
-    │   │   ├── Card.jsx
-    │   │   ├── CardContent.jsx
-    │   │   └── CardImage.jsx
     │   ├── cardList
-    │   │   ├── CardList.jsx
-    │   │   └── NoneCardList.jsx
     │   ├── error
-    │   │   └── Error.jsx
     │   ├── filter
-    │   │   ├── Filter.jsx
-    │   │   └── FilterItem.jsx
     │   ├── layout
-    │   │   ├── Footer.jsx
-    │   │   ├── Header.jsx
-    │   │   ├── HeaderDropdown.jsx
-    │   │   └── Layout.jsx
     │   ├── modal
-    │   │   ├── Modal.jsx
-    │   │   └── ModalContainer.jsx
     │   └── toast
-    │       ├── Toast.jsx
-    │       ├── ToastBar.jsx
-    │       ├── ToastContainer.jsx
-    │       └── toaster.js
-    ├── app.feature => 페이지
+    ├── app.constant => 재활용 가능한 상수 / 모듈 관리
+    │   ├── animation.js
+    │   └── cardConstant.js
+    ├── app.feature => 각 페이지별 컴포넌트 관리
     │   ├── Bookmark
-    │   │   └── Bookmark.jsx
     │   ├── Main
-    │   │   ├── BookmarkList.jsx
-    │   │   ├── Main.jsx
-    │   │   └── ProductList.jsx
     │   └── Product
-    │       └── Product.jsx
-    ├── app.hook => hook으로 쓸 함수
+    ├── app.hook
     │   └── useIntersectionObserver.jsx
     ├── index.css
     ├── index.js
+    ├── pages => 각 페이지 관리
+    │   ├── BookmarkPage.jsx
+    │   ├── MainPage.jsx
+    │   └── ProductPage.jsx
     └── reportWebVitals.js
 ```

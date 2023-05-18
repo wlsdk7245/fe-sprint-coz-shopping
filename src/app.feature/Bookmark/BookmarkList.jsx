@@ -2,13 +2,11 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CardList from "../../app.component/cardList/CardList";
 import Error from "../../app.component/error/Error";
-import Filter from "../../app.component/filter/Filter";
 import useIntersectionObserver from "../../app.hook/useIntersectionObserver";
 
-const Bookmark = () => {
+const BookmarkList = ({ selectedFilter }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [bookmarkList, setBookmarkList] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState("all");
   const [page, setPage] = useState(0);
   const [isError, setIsError] = useState(false);
 
@@ -57,26 +55,22 @@ const Bookmark = () => {
   if (isError) return <Error />;
   return (
     <StyledWrapper>
-      <Filter
-        selectedFilter={selectedFilter}
-        setSelectedFilter={setSelectedFilter}
-      />
       <CardList cardList={dataset} isLoading={isLoading} />
-      <div className="last-item-flag" ref={lastCardRef} />
+      <LastItemFlag ref={lastCardRef} />
     </StyledWrapper>
   );
 };
 
-export default Bookmark;
+export default BookmarkList;
 
 const StyledWrapper = styled.div`
   position: relative;
+`;
 
-  .last-item-flag {
-    bottom: 0;
-    right: 0;
-    left: 0;
-    height: 100px;
-    position: absolute;
-  }
+const LastItemFlag = styled.div`
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100px;
+  position: absolute;
 `;

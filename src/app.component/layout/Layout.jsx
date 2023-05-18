@@ -8,7 +8,7 @@ const Layout = ({ component }) => {
   return (
     <StyledWrapper>
       <Header />
-      <div className="content">{component}</div>
+      <Content>{component}</Content>
       <Footer />
       <Toast />
     </StyledWrapper>
@@ -19,8 +19,9 @@ export default Layout;
 
 const StyledWrapper = styled.div`
   height: 100%;
-  .content {
-    height: 100%;
-    padding: 24px 76px;
-  }
+`;
+
+const Content = styled.div`
+  height: 100%;
+  padding: 24px 76px;
 `;

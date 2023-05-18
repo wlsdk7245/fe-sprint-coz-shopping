@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import Main from "./app.feature/Main/Main";
-import Product from "./app.feature/Product/Product";
-import Bookmark from "./app.feature/Bookmark/Bookmark";
+import MainPage from "./pages/MainPage";
+import BookmarkPage from "./pages/BookmarkPage";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Main />} />
-      <Route path="/products/list" element={<Product />} />
-      <Route path="/bookmark" element={<Bookmark />} />
+      <Route path="/" element={<MainPage />} />
+      <Route path="/products/list" element={<ProductPage />} />
+      <Route path="/bookmark" element={<BookmarkPage />} />
     </Routes>
   );
 }

@@ -1,15 +1,13 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import Filter from "../../app.component/filter/Filter";
 import CardList from "../../app.component/cardList/CardList";
 import useIntersectionObserver from "../../app.hook/useIntersectionObserver";
 import Error from "../../app.component/error/Error";
 
-const Product = () => {
+const ProductList = ({ selectedFilter }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [productList, setProductList] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState("all");
   const [isError, setIsError] = useState(false);
 
   const lastCardRef = useRef();
@@ -52,26 +50,22 @@ const Product = () => {
   if (isError) return <Error />;
   return (
     <StyledWrapper>
-      <Filter
-        selectedFilter={selectedFilter}
-        setSelectedFilter={setSelectedFilter}
-      />
       <CardList cardList={dataset} />
-      <div className="last-item-flag" ref={lastCardRef} />
+      <LastItemFlag ref={lastCardRef} />
     </StyledWrapper>
   );
 };
 
-export default Product;
+export default ProductList;
 
 const StyledWrapper = styled.div`
   position: relative;
+`;
 
-  .last-item-flag {
-    bottom: 0;
-    right: 0;
-    left: 0;
-    height: 100px;
-    position: absolute;
-  }
+const LastItemFlag = styled.div`
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100px;
+  position: absolute;
 `;
