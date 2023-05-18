@@ -4,12 +4,12 @@ import Bookmark from "../bookmark/Bookmark";
 import ModalContainer from "./ModalContainer";
 
 const Modal = ({
+  info,
   title,
   isOpen,
   onOpenModal,
   backgroundImage,
   isBookmarked,
-  onClickBookmark,
 }) => {
   return isOpen ? (
     <ModalContainer>
@@ -22,10 +22,7 @@ const Modal = ({
             onClick={onOpenModal}
           />
           <ModalTitle>
-            <Bookmark
-              isBookmarked={isBookmarked}
-              onClickBookmark={onClickBookmark}
-            />
+            <Bookmark info={info} isBookmarked={isBookmarked} />
             <ModalTitleText>{title}</ModalTitleText>
           </ModalTitle>
         </ModalWrapper>

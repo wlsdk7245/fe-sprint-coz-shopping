@@ -29,6 +29,14 @@ export class Toaster {
     });
   }
 
+  success(message) {
+    this.addToastItem({ type: "success", message });
+  }
+
+  error(message) {
+    this.addToastItem({ type: "error", message });
+  }
+
   add(message) {
     this.addToastItem({ type: "add", message });
   }

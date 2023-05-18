@@ -7,7 +7,6 @@ import { getCardImageContent } from "../../app.constant/cardConstant";
 
 const CardImage = ({ info, isLoading, setIsLoading }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
 
   const { id } = info;
 
@@ -15,43 +14,25 @@ const CardImage = ({ info, isLoading, setIsLoading }) => {
 
   const handleOpenModal = () => setIsOpenModal(!isOpenModal);
 
-  const handleClickBookmark = () => {
-    setIsBookmarked(!isBookmarked);
-    let data = localStorage.getItem("coz-shopping");
-
-    if (isBookmarked) {
-      if (data) {
-        data = JSON.parse(data).filter((item) => item.id !== id);
-        localStorage.setItem("coz-shopping", JSON.stringify([...data]));
-      }
-    } else {
-      if (data)
-        localStorage.setItem(
-          "coz-shopping",
-          JSON.stringify([...JSON.parse(data), info])
-        );
-      else localStorage.setItem("coz-shopping", JSON.stringify([info]));
-    }
-  };
-
-  useEffect(() => {
+  let isBookmark = () => {
     const data = localStorage.getItem("coz-shopping");
     if (data) {
       if (JSON.parse(data).some((item) => item.id === id)) {
-        setIsBookmarked(true);
+        return true;
       }
     }
-  }, []);
+    return false;
+  };
 
   return (
     <StyledWrapper isLoaded={!isLoading}>
       <Modal
+        info={info}
         title={title}
         isOpen={isOpenModal}
         onOpenModal={handleOpenModal}
         backgroundImage={image}
-        isBookmarked={isBookmarked}
-        onClickBookmark={handleClickBookmark}
+        isBookmarked={isBookmark()}
       />
       <CardBackground />
       <CardImg
@@ -62,10 +43,7 @@ const CardImage = ({ info, isLoading, setIsLoading }) => {
         onLoad={() => setIsLoading(false)}
         onClick={handleOpenModal}
       />
-      <Bookmark
-        isBookmarked={isBookmarked}
-        onClickBookmark={handleClickBookmark}
-      />
+      <Bookmark info={info} isBookmarked={isBookmark()} />
     </StyledWrapper>
   );
 };

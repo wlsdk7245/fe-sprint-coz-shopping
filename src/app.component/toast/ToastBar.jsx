@@ -29,14 +29,7 @@ const ToastBar = ({ toastItem }) => {
   }, [toastItem, toastDuration]);
 
   return (
-    <StyledWrapper opacity={opacity}>
-      <BookmarkImage
-        alt="북마크"
-        src={
-          process.env.PUBLIC_URL +
-          `/images/bookmark-${type === "add" ? "on" : "off"}.png`
-        }
-      />
+    <StyledWrapper type={type} opacity={opacity}>
       {message}
     </StyledWrapper>
   );
@@ -56,17 +49,15 @@ const StyledWrapper = styled.div`
   font-weight: 700;
   font-size: 16px;
   z-index: 9999;
-  background-color: var(--color-white);
   animation: ${({ opacity }) =>
     opacity
       ? css`
           ${fadeInMove} 700ms, ${fadeOutMove} 700ms 3s
         `
       : ""};
-`;
 
-const BookmarkImage = styled.div`
-  margin-right: 8px;
-  width: 16px;
-  height: 16px;
+  background-color: ${({ type }) =>
+    type === "success" ? "var(--color-white)" : "var(--color-error)"};
+  color: ${({ type }) =>
+    type === "success" ? "var(--color-black)" : "var(--color-white)"};
 `;
