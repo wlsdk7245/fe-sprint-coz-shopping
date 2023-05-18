@@ -39,7 +39,7 @@ const BookmarkList = () => {
     bookmarkDataset = [...bookmarkDataset, ...SkeletonArray];
   return (
     <StyledWrapper>
-      <div className="list-title">북마크 리스트</div>
+      <ListTitle>북마크 리스트</ListTitle>
       {isError && (
         <Error
           innerText="북마크 리스트를 불러오는 데 실패했습니다. 다시 시도해주세요."
@@ -55,11 +55,11 @@ export default BookmarkList;
 
 const StyledWrapper = styled.div`
   margin-bottom: 12px;
+`;
 
-  .list-title {
-    margin-bottom: 12px;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 38px;
-  }
+const ListTitle = styled.div`
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 38px;
 `;

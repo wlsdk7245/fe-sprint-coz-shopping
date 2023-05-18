@@ -10,20 +10,18 @@ const Header = () => {
 
   return (
     <StyledWrapper>
-      <div className="header-title">
+      <HeaderTitle>
         <Link to="/">
-          <img
-            className="title-logo"
+          <TitleLogo
             src={process.env.PUBLIC_URL + "/images/logo.png"}
             alt="logo"
           />
         </Link>
-        <div className="title-text">COZ Shopping</div>
-      </div>
+        <TitleText>COZ Shopping</TitleText>
+      </HeaderTitle>
       <div onMouseLeave={handleClickDropdown(false)}>
-        <img
+        <HeaderMenu
           alt="menu"
-          className="header-menu"
           onClick={handleClickDropdown(true)}
           src={process.env.PUBLIC_URL + "/images/menu.png"}
         />
@@ -50,25 +48,25 @@ const StyledWrapper = styled.div`
   top: 0;
   background-color: var(--color-white);
   z-index: 100;
+`;
 
-  .header-title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
+const HeaderTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+`;
 
-    .title-logo {
-      cursor: pointer;
-    }
+const TitleLogo = styled.img`
+  cursor: pointer;
+`;
 
-    .title-text {
-      color: black;
-      font-weight: 700;
-      font-size: 32px;
-    }
-  }
+const TitleText = styled.div`
+  color: black;
+  font-weight: 700;
+  font-size: 32px;
+`;
 
-  .header-menu {
-    cursor: pointer;
-  }
+const HeaderMenu = styled.img`
+  cursor: pointer;
 `;

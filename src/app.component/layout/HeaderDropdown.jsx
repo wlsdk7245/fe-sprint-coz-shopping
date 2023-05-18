@@ -12,8 +12,10 @@ const HeaderDropdown = ({ isOpenDropdown, onClickDropdown }) => {
 
   return (
     <StyledWrapper isOpenDropdown={isOpenDropdown}>
-      <div className="dropdown-list__item center">OOO님, 안녕하세요!</div>
-      <div
+      <DropDownItem className="dropdown-list__item center">
+        OOO님, 안녕하세요!
+      </DropDownItem>
+      <DropDownItem
         className="dropdown-list__item link"
         onClick={handleClickLink("/products/list")}
       >
@@ -22,8 +24,8 @@ const HeaderDropdown = ({ isOpenDropdown, onClickDropdown }) => {
           src={process.env.PUBLIC_URL + "/images/product.png"}
         />
         상품리스트 페이지
-      </div>
-      <div
+      </DropDownItem>
+      <DropDownItem
         className="dropdown-list__item link"
         onClick={handleClickLink("/bookmark")}
       >
@@ -32,7 +34,7 @@ const HeaderDropdown = ({ isOpenDropdown, onClickDropdown }) => {
           src={process.env.PUBLIC_URL + "/images/bookmark.png"}
         />
         북마크 페이지
-      </div>
+      </DropDownItem>
     </StyledWrapper>
   );
 };
@@ -60,24 +62,24 @@ const StyledWrapper = styled.div`
     border-left: 9px solid transparent;
     border-right: 9px solid transparent;
   }
+`;
 
-  .dropdown-list__item {
-    display: flex;
-    align-items: center;
-    background-color: var(--color-white);
-    padding: 13px 24px;
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+const DropDownItem = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: var(--color-white);
+  padding: 13px 24px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
 
-    &.center {
-      justify-content: center;
-    }
+  &.center {
+    justify-content: center;
+  }
 
-    &.link {
-      cursor: pointer;
-    }
+  &.link {
+    cursor: pointer;
+  }
 
-    img {
-      margin-right: 8px;
-    }
+  img {
+    margin-right: 8px;
   }
 `;

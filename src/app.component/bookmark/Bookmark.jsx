@@ -13,8 +13,8 @@ const Bookmark = ({ isBookmarked, onClickBookmark }) => {
   };
 
   return (
-    <StyledWrapper className="bookmark">
-      <img
+    <div className="bookmark">
+      <BookmarkImage
         onClick={handleClickBookmark}
         className="bookmark-button"
         alt="bookmark"
@@ -23,14 +23,12 @@ const Bookmark = ({ isBookmarked, onClickBookmark }) => {
           `/images/bookmark-${isBookmarked ? "on" : "off"}.png`
         }
       />
-    </StyledWrapper>
+    </div>
   );
 };
 
 export default Bookmark;
 
-const StyledWrapper = styled.div`
-  .bookmark-button {
-    cursor: pointer;
-  }
+const BookmarkImage = styled.img`
+  cursor: pointer;
 `;

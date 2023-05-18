@@ -29,7 +29,7 @@ const CardContent = ({ info, isLoading }) => {
     if (type === CARD_TYPE.PRODUCT) {
       titleLeft = title;
       titleRight = `${discountPercentage}%`;
-      detail = price;
+      detail = `${Number(price).toLocaleString()}원`;
       className = "product";
     } else if (type === CARD_TYPE.EXHIBITION) {
       titleLeft = title;
@@ -57,11 +57,15 @@ const CardContent = ({ info, isLoading }) => {
 
   return (
     <StyledWrapper isLoading={isLoading}>
-      <div className={`${className} card-title`}>
-        <div className={`${className} card-title__left`}>{titleLeft}</div>
-        <div className={`${className} card-title__right`}>{titleRight}</div>
-      </div>
-      <div className={`${className} card-detail`}>{detail}</div>
+      <CardTitle>
+        <CardTitleContent className={`title-content ${className}--left`}>
+          {titleLeft}
+        </CardTitleContent>
+        <CardTitleContent className={`title-content ${className}--right`}>
+          {titleRight}
+        </CardTitleContent>
+      </CardTitle>
+      <CardSubTitle className={`sub-title ${className}`}>{detail}</CardSubTitle>
     </StyledWrapper>
   );
 };
@@ -78,23 +82,24 @@ const StyledWrapper = styled.div`
     opacity: 0;
     animation: ${!isLoading ? fadeIn : null} 0.3s forwards;
   `}
+`;
 
-  .card-title {
-    font-weight: 800;
-    display: flex;
-    justify-content: space-between;
-  }
+const CardTitle = styled.div`
+  font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+`;
 
-  .brand,
-  .product {
-    &.card-detail {
-      text-align: right;
-      font-weight: 400;
-    }
+const CardTitleContent = styled.div`
+  &.product--right {
+    color: var(--color-violet);
   }
-  .product {
-    .card-title__right {
-      color: var(--color-violet);
-    }
+`;
+
+const CardSubTitle = styled.div`
+  &.brand,
+  &.product {
+    text-align: right;
+    font-weight: 400;
   }
 `;

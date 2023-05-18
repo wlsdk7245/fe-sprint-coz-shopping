@@ -38,7 +38,7 @@ const ToastBar = ({ toastItem }) => {
 
   return (
     <StyledWrapper opacity={opacity}>
-      <img
+      <BookmarkImage
         alt="북마크"
         src={
           process.env.PUBLIC_URL +
@@ -71,10 +71,10 @@ const StyledWrapper = styled.div`
           ${fadein} 700ms, ${fadeout} 700ms 3s
         `
       : ""};
+`;
 
-  img {
-    margin-right: 8px;
-    width: 16px;
-    height: 16px;
-  }
+const BookmarkImage = styled.div`
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
 `;

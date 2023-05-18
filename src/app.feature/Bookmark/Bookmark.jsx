@@ -62,7 +62,7 @@ const Bookmark = () => {
         setSelectedFilter={setSelectedFilter}
       />
       <CardList cardList={dataset} isLoading={isLoading} />
-      <div className="last-item-flag" ref={lastCardRef} />
+      <LastItemFlag ref={lastCardRef} />
     </StyledWrapper>
   );
 };
@@ -71,12 +71,12 @@ export default Bookmark;
 
 const StyledWrapper = styled.div`
   position: relative;
+`;
 
-  .last-item-flag {
-    bottom: 0;
-    right: 0;
-    left: 0;
-    height: 100px;
-    position: absolute;
-  }
+const LastItemFlag = styled.div`
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100px;
+  position: absolute;
 `;

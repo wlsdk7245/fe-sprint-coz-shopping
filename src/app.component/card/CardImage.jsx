@@ -85,13 +85,13 @@ const CardImage = ({ info, isLoading, setIsLoading }) => {
         isBookmarked={isBookmarked}
         onClickBookmark={handleClickBookmark}
       />
-      <div className="card-background" />
-      <img
+      <CardBackground />
+      <CardImg
         src={image}
         loading="lazy"
         alt=""
+        isLoaded={!isLoading}
         onLoad={() => setIsLoading(false)}
-        className={`card-image`}
         onClick={handleOpenModal}
       />
       <Bookmark
@@ -109,41 +109,6 @@ const StyledWrapper = styled.div`
   width: 264px;
   height: 210px;
 
-  .card-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--color-gray-10);
-    border-radius: 12px;
-    z-index: 2;
-  }
-
-  .openModal {
-    display: flex;
-  }
-
-  .card-image {
-    z-index: 2;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: 300ms;
-    border-radius: 12px;
-    object-fit: cover;
-    overflow: hidden;
-    opacity: 1;
-    cursor: pointer;
-
-    ${({ isLoaded }) => css`
-      opacity: 0;
-      animation: ${isLoaded ? fadeIn : null} 0.5s forwards;
-    `}
-  }
-
   .bookmark {
     position: absolute;
     bottom: 12px;
@@ -155,4 +120,35 @@ const StyledWrapper = styled.div`
       animation: ${isLoaded ? fadeIn : null} 0.5s forwards;
     `}
   }
+`;
+
+const CardBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-gray-10);
+  border-radius: 12px;
+  z-index: 2;
+`;
+
+const CardImg = styled.img`
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+  border-radius: 12px;
+  object-fit: cover;
+  overflow: hidden;
+  opacity: 1;
+  cursor: pointer;
+
+  ${({ isLoaded }) => css`
+    opacity: 0;
+    animation: ${isLoaded ? fadeIn : null} 0.5s forwards;
+  `}
 `;
