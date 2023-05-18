@@ -1,25 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
+import { fadeIn } from "../../app.constant/animation";
 import Bookmark from "../bookmark/Bookmark";
 import Modal from "../modal/Modal";
-
-export const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-export const fadeOut = keyframes`
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-`;
+import { getCardImageContent } from "../../app.constant/cardConstant";
 
 const CardImage = ({ info, isLoading, setIsLoading }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -27,23 +11,7 @@ const CardImage = ({ info, isLoading, setIsLoading }) => {
 
   const { id } = info;
 
-  const getCardInfo = (info) => {
-    const { type } = info;
-    let image, title;
-    if (type === "Brand") {
-      title = info.brand_name;
-      image = info.brand_image_url;
-    } else if (type === "Category") {
-      title = `# ${info.title}`;
-      image = info.image_url;
-    } else {
-      title = info.title;
-      image = info.image_url;
-    }
-    return { title, image };
-  };
-
-  const { title, image } = getCardInfo(info);
+  const { title, image } = getCardImageContent(info);
 
   const handleOpenModal = () => setIsOpenModal(!isOpenModal);
 
