@@ -1,68 +1,67 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
-import Filter from "../../app.component/filter/Filter";
 import CardList from "../../app.component/cardList/CardList";
-import useIntersectionObserver from "../../app.hook/useIntersectionObserver";
 import Error from "../../app.component/error/Error";
+import useIntersectionObserver from "../../app.hook/useIntersectionObserver";
 
-const Product = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [productList, setProductList] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState("all");
+const BookmarkList = ({ selectedFilter }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [bookmarkList, setBookmarkList] = useState([]);
+  const [page, setPage] = useState(0);
   const [isError, setIsError] = useState(false);
 
   const lastCardRef = useRef();
+  let localDataset = localStorage.getItem("coz-shopping");
+  if (localDataset) localDataset = JSON.parse(localDataset);
 
-  const requestProductList = async () => {
+  const requestBookmarkList = async () => {
     try {
       setIsLoading(true);
-      const result = await axios.get(
-        "http://cozshopping.codestates-seb.link/api/v1/products"
-      );
-
-      if (result?.status === 200)
-        setProductList([...productList, ...result.data]);
-      else throw result;
+      if (localDataset) {
+        await setBookmarkList([
+          ...bookmarkList,
+          ...localDataset.slice(page * 20, page * 20 + 20),
+        ]);
+        setPage(page + 1);
+      } else {
+        setBookmarkList([]);
+      }
     } catch (err) {
+      console.log(err);
       setIsError(true);
-      setProductList([]);
+      setBookmarkList([]);
     } finally {
       setIsLoading(false);
     }
   };
 
   useLayoutEffect(() => {
-    requestProductList();
+    requestBookmarkList();
   }, []);
 
   useIntersectionObserver({
     root: null,
     target: lastCardRef,
-    enabled: !isError,
-    onIntersect: requestProductList,
+    enabled: localDataset && localDataset.length >= page * 20,
+    onIntersect: requestBookmarkList,
   });
 
   const SkeletonArray = Array.from(Array(20).keys());
-  let dataset = productList;
+
+  let dataset = bookmarkList;
   if (selectedFilter !== "all")
     dataset = dataset.filter((item) => item.type === selectedFilter);
   if (isLoading) dataset = [...dataset, ...SkeletonArray];
-
   if (isError) return <Error />;
   return (
     <StyledWrapper>
-      <Filter
-        selectedFilter={selectedFilter}
-        setSelectedFilter={setSelectedFilter}
-      />
-      <CardList cardList={dataset} />
+      <CardList cardList={dataset} isLoading={isLoading} />
       <LastItemFlag ref={lastCardRef} />
     </StyledWrapper>
   );
 };
 
-export default Product;
+export default BookmarkList;
 
 const StyledWrapper = styled.div`
   position: relative;

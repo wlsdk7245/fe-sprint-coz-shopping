@@ -4,7 +4,7 @@ import styled from "styled-components";
 import CardList from "../../app.component/cardList/CardList";
 import Error from "../../app.component/error/Error";
 
-const ProductList = () => {
+const MainProductList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [productList, setProductList] = useState([]);
   const [isError, setIsError] = useState(false);
@@ -48,7 +48,7 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default MainProductList;
 
 const StyledWrapper = styled.div`
   margin-bottom: 12px;

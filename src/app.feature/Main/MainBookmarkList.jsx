@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CardList from "../../app.component/cardList/CardList";
 import Error from "../../app.component/error/Error";
 
-const BookmarkList = () => {
+const MainBookmarkList = () => {
   const [isBookmarkLoading, setIsBookmarkLoading] = useState(true);
   const [bookmarkList, setBookmarkList] = useState([]);
   const [isError, setIsError] = useState(false);
@@ -51,7 +51,7 @@ const BookmarkList = () => {
   );
 };
 
-export default BookmarkList;
+export default MainBookmarkList;
 
 const StyledWrapper = styled.div`
   margin-bottom: 12px;

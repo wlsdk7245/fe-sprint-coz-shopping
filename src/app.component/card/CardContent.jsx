@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { fadeIn } from "../../app.constant/animation";
-import { getCardContent } from "./cardConstant";
+import { getCardContent } from "../../app.constant/cardConstant";
 
 const CardContent = ({ info, isLoading }) => {
   const { titleLeft, titleRight, detail, className } = getCardContent(info);
